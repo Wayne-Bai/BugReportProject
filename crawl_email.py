@@ -44,7 +44,12 @@ class LinuxSpider:
         # print(index_html)
         Email_infos = self.get_email_info(index_html)
 
-        with open('whole_email.json', 'a') as w:
+        if Specific_year == None:
+            file_name = 'whole_email.json'
+        else:
+            file_name = str(Specific_year) + '_email.json'
+
+        with open(file_name, 'a') as w:
             for email_info in Email_infos:
                 email_url = 'https://lkml.org' + email_info[0][0]
                 email_html = self.download(email_url, encoding='gdk')
