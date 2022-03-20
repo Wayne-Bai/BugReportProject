@@ -4,7 +4,7 @@ import json
 workbook = xlwt.Workbook(encoding='utf-8')
 worksheet = workbook.add_sheet('commit', cell_overwrite_ok=True)
 
-# 设置表头
+# Set up the HEAD
 worksheet.write(0, 0, label='ID')
 worksheet.write(0, 1, label='AUTHORED_DATE')
 worksheet.write(0, 2, label='AUTHOR')
@@ -17,7 +17,7 @@ worksheet.write(0, 8, label='SIZE')
 worksheet.write(0, 9, label='MESSAGE')
 
 
-# 读取json文件
+# Read JSON File
 with open('commit_git.json', 'r') as f:
 
     val = 1
@@ -50,7 +50,7 @@ with open('commit_git.json', 'r') as f:
         val += 1
 
 
-# 保存
-print('---------------------')
+# SAVE the file
+
 workbook.save('commit_content.xls')
 f.close()
