@@ -75,7 +75,6 @@ class LinuxSpider:
                 # print(self.total)
                 w.write(json.dumps(email_dic))
                 w.write('\n')
-                exit()
         w.close()
 
     def download(self, url, encoding):
