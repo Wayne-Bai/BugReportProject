@@ -163,31 +163,38 @@ if __name__ == '__main__':
                 if i in long_month:
                     for j in range(1,32):
                         linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        print(linux_url)
                         spider.get_email(linux_url)
                 elif i == 2:
-                        for j in range(1, 30):
-                            linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
-                            spider.get_email(linux_url)
+                    for j in range(1, 30):
+                        linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        print(linux_url)
+                        spider.get_email(linux_url)
                 else:
                     for j in range(1,31):
                         linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        print(linux_url)
                         spider.get_email(linux_url)
         else:
             for i in range(1,13):
                 if i in long_month:
                     for j in range(1,32):
                         linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        print(linux_url)
                         spider.get_email(linux_url)
                 elif i == 2:
                     if Specific_year % 4 == 0:
                         for j in range(1, 30):
                             linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                            print(linux_url)
                             spider.get_email(linux_url)
                     else:
                         for j in range(1, 29):
                             linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                            print(linux_url)
                             spider.get_email(linux_url)
                 else:
                     for j in range(1,31):
                         linux_url = 'https://lkml.org/lkml/' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        print(linux_url)
                         spider.get_email(linux_url)
