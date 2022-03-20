@@ -1,32 +1,9 @@
-from requests_html import HTMLSession
-
-# session = HTMLSession()
-# # url = 'https://lkml.org/lkml'
-# url = 'https://lkml.org/lkml/2021/1/1/1'
-# r = session.get(url)
-# print(r.html.text)
-# sel = 'body > table > tbody > tr:nth-child(2) > td:nth-child(3) > pre'
-# print(r.html.find(sel))
-
-
-# import urllib.request as urllib2
-# from bs4 import BeautifulSoup
-#
-# quote_page = 'https://lkml.org/lkml/2021/1/1/1'
-#
-# page = urllib2.urlopen(quote_page)
-#
-# soup = BeautifulSoup(page, 'html.parser')
-#
-# name_box = soup.find('h1', attrs={'class': 'name'})
-# name = name_box.text.strip()
-# print(name)
-
-
-
 import requests
 import re
 import json
+
+Specific_year = 2022
+long_month = [1,3,5,7,8,10,12]
 
 class LinuxSpider:
 
@@ -163,13 +140,49 @@ if __name__ == '__main__':
     # spider = LinuxSpider()
     # spider.get_email(Linux_url)
 
-    linux_url = 'https://lkml.org/lkml'
-    spider = LinuxSpider()
-    day_list = spider.get_whole_emails(linux_url)
-    # print(len(day_list))
-    for i in day_list:
-        # print(len(i))
-        for j in i:
-            print(j)
-            email_whole_email = 'https://lkml.org' + j
-            spider.get_email(email_whole_email)
+    if Specific_year == None:
+        linux_url = 'https://lkml.org/lkml'
+        spider = LinuxSpider()
+        day_list = spider.get_whole_emails(linux_url)
+        # print(len(day_list))
+        for i in day_list:
+            # print(len(i))
+            for j in i:
+                print(j)
+                email_whole_email = 'https://lkml.org' + j
+                spider.get_email(email_whole_email)
+    else:
+        spider = LinuxSpider()
+        if Specific_year == 2022:
+            for i in range(1,4):
+                if i in long_month:
+                    for j in range(1,32):
+                        linux_url = 'https://lkml.org/lkml' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        spider.get_email(linux_url)
+                elif i == 2:
+                        for j in range(1, 30):
+                            linux_url = 'https://lkml.org/lkml' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                            spider.get_email(linux_url)
+                else:
+                    for j in range(1,31):
+                        linux_url = 'https://lkml.org/lkml' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        spider.get_email(linux_url)
+        else:
+            for i in range(1,13):
+                if i in long_month:
+                    for j in range(1,32):
+                        linux_url = 'https://lkml.org/lkml' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        spider.get_email(linux_url)
+                elif i == 2:
+                    if Specific_year % 4 == 0:
+                        for j in range(1, 30):
+                            linux_url = 'https://lkml.org/lkml' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                            spider.get_email(linux_url)
+                    else:
+                        for j in range(1, 29):
+                            linux_url = 'https://lkml.org/lkml' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                            spider.get_email(linux_url)
+                else:
+                    for j in range(1,31):
+                        linux_url = 'https://lkml.org/lkml' + str(Specific_year) + '/' + str(i) + '/' + str(j)
+                        spider.get_email(linux_url)
