@@ -16,6 +16,5 @@ for i in range(len(total_email)):
         for j in range(i+1, len(total_email)):
             if total_email[i]['subject'][0] in total_email[j]['subject'][0]:
                 temp.append(total_email[j])
+        print(temp)
         total_conversation.append(temp)
-print(len(total_conversation))
-print(total_conversation[1])
