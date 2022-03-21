@@ -40,7 +40,24 @@ for email in total_conversation:
 
 print(len(email_map.keys()))
 
+author_map = {}
+value_list = []
 for key,value in email_map.items():
-    print("Author: {}, Submit Number: {}".format(key, len(value)))
+    # print("Author: {}, Submit Number: {}".format(key, len(value)))
+    author_map[key] = len(value)
+    value_list.append(len(value))
+
+print(min(value_list))
+print(max(value_list))
+
+number_map = {}
+for i in range(min(value_list), max(value_list)+1):
+    number_map[str(i)] = 0
+
+for _, submit_value in author_map.items():
+    number_map[str(submit_value)] += 1
+
+print(number_map)
+
 
 # print(email_map.keys())
