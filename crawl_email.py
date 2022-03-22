@@ -51,12 +51,15 @@ class LinuxSpider:
 
         with open(file_name, 'a') as w:
             for email_info in Email_infos:
-                email_url = 'https://lkml.org' + email_info[0][0]
-                email_html = self.download(email_url, encoding='gdk')
-                email_dic = self.get_email_content(email_html)
-                # print(self.total)
-                w.write(json.dumps(email_dic))
-                w.write('\n')
+                try:
+                    email_url = 'https://lkml.org' + email_info[0][0]
+                    email_html = self.download(email_url, encoding='gdk')
+                    email_dic = self.get_email_content(email_html)
+                    # print(self.total)
+                    w.write(json.dumps(email_dic))
+                    w.write('\n')
+                except:
+                    print(email_info)
         w.close()
 
     def download(self, url, encoding):
