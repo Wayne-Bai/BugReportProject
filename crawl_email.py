@@ -2,7 +2,7 @@ import requests
 import re
 import json
 
-Specific_year = 2020
+Specific_year = 2019
 long_month = [1,3,5,7,8,10,12]
 
 class LinuxSpider:
