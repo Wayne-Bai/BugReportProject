@@ -6,7 +6,7 @@ count = 0
 
 for i in data_list:
 
-    with open(i+'_email.json', 'r') as f:
+    with open('dataset/' + i+'_email.json', 'r') as f:
         for line in f.readlines():
             count += 1
 
