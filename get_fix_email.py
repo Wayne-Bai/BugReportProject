@@ -5,7 +5,7 @@ import json
 count = 0
 fix_email = []
 
-with open('../2022_email.json','r') as f:
+with open('dataset/2022_email.json','r') as f:
     for line in f.readlines():
         data = json.loads(line)
         if 'fix' in str(data['subject']).lower().split() and 'merge' not in str(data['subject']).lower() \
@@ -14,8 +14,12 @@ with open('../2022_email.json','r') as f:
                 and 'revert' not in str(data['subject']).lower() and 'spelling' not in str(data['subject']).lower() \
                 and 'readability' not in str(data['subject']).lower() and 'documentation' not in str(data['subject']).lower() \
                 and 'comment' not in str(data['subject']).lower():
-            fix_email.append(data)
-            count += 1
+            if data['author'] and "kernel test robot" not in data['author'][0]:
+                fix_email.append(data)
+                count += 1
+            else:
+                fix_email.append(data)
+                count += 1
 f.close()
 
 print(count)
