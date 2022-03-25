@@ -15,7 +15,10 @@ with open('../2022_email.json','r') as f:
                 and 'readability' not in str(data['subject']).lower() and 'documentation' not in str(data['subject']).lower() \
                 and 'comment' not in str(data['subject']).lower():
             fix_email.append(data)
+            count += 1
 f.close()
+
+print(count)
 
 with open('2022_fix_total.json','a') as w:
     for i in fix_email:
