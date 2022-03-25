@@ -5,7 +5,7 @@ import json
 count = 0
 fix_email = []
 
-with open('dataset/2022_email.json','r') as f:
+with open('whole_email.json.json','r') as f:
     for line in f.readlines():
         data = json.loads(line)
         if 'fix' in str(data['subject']).lower().split() and 'merge' not in str(data['subject']).lower() \
@@ -24,7 +24,7 @@ f.close()
 
 print(count)
 
-with open('2022_fix_total.json','a') as w:
+with open('fix_total.json','a') as w:
     for i in fix_email:
         w.write(json.dumps(i))
         w.write('\n')
