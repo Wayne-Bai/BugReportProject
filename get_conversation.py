@@ -23,7 +23,7 @@ for i in range(len(total_email)):
 
 print(len(total_conversation))
 
-with open("2022_conversation.json",'a') as w:
+with open("total_conversation.json",'a') as w:
     for j in total_conversation:
         w.write(json.dumps(j))
         w.write('\n')
