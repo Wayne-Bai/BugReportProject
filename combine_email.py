@@ -9,7 +9,7 @@ with open('whole_email.json', 'a') as w:
         with open(file_name,'r') as f:
             for line in f.readlines():
                 w.write(line)
-            count +=1
+                count += 1
 
         f.close()
         print('{}: {}'.format(i,count))
