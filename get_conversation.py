@@ -2,7 +2,7 @@ import json
 
 total_email = []
 
-with open("2022_fix_total.json",'r') as f:
+with open("fix_total.json",'r') as f:
     for line in f.readlines():
         data = json.loads(line)
         total_email.append(data)
