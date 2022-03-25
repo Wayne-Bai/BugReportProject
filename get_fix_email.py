@@ -5,7 +5,7 @@ import json
 count = 0
 fix_email = []
 
-with open('whole_email.json.json','r') as f:
+with open('whole_email.json','r') as f:
     for line in f.readlines():
         data = json.loads(line)
         if 'fix' in str(data['subject']).lower().split() and 'merge' not in str(data['subject']).lower() \
