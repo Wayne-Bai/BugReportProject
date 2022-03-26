@@ -7,7 +7,7 @@ from collections import Counter
 
 conversation = []
 
-with open("2022_conversation.json", "r") as f1:
+with open("total_conversation.json", "r") as f1:
     for line in f1.readlines():
         data = json.loads(line)
         conversation.append(data)
@@ -21,7 +21,7 @@ discussion_reject = 0
 
 accept_conversation = []
 
-with open("2022_commit.json", 'r') as f2:
+with open("commit_git.json", 'r') as f2:
     for commit_data in f2.readlines():
         fix_commit = json.loads(commit_data)
         # summary = fix_commit["SUMMARY"].lower().split()
@@ -88,7 +88,8 @@ with open("2022_commit.json", 'r') as f2:
                 elif email_month == 'Dec':
                     int_email_month = 12
 
-                date_duration_days = datetime.datetime(int(email_year), int_email_month, int(email_day)) - datetime.datetime(int(author_year), int(author_month), int(author_day))
+                date_duration_days = datetime.datetime(int(email_year), int_email_month, int(email_day)) - \
+                                     datetime.datetime(int(author_year), int(author_month), int(author_day))
                 date_duration = math.fabs(date_duration_days.days)
 
                 if rate > 0.5:
@@ -130,22 +131,28 @@ discussion_accept = 0
 print('direct_reject: {}'.format(direct_reject))
 print('discussion_reject: {}'.format(discussion_reject))
 
-for j in mapping:
-    if j['CONVERSATION']:
+with open('commit_email_mapping.json', 'a') as w:
+    for j in mapping:
 
-        length = 0
+        w.write(json.dumps(j))
+        w.write('\n')
 
-        for x in j['CONVERSATION']:
-            length += len(x)
+        if j['CONVERSATION']:
 
-        # print(length)
+            length = 0
 
-        if length > 4:
-            discussion_accept += 1
+            for x in j['CONVERSATION']:
+                length += len(x)
+
+            # print(length)
+
+            if length > 4:
+                discussion_accept += 1
+            else:
+                direct_accept += 1
         else:
-            direct_accept += 1
-    else:
-        print(j)
+            print(j)
+w.close()
 
 print('direct_accept: {}'.format(direct_accept))
 print('discussion_accept: {}'.format(discussion_accept))
