@@ -31,8 +31,10 @@ if content == 'fix_commit':
                     and 'performing' not in str(commit.summary).lower() and 'typo' not in str(commit.summary).lower() \
                     and 'revert' not in str(commit.summary).lower() and 'spelling' not in str(commit.summary).lower() \
                     and 'readability' not in str(commit.summary).lower() and 'documentation' not in str(commit.summary).lower() \
-                    and 'comment' not in str(commit.summary).lower() and str(commit.author) != str(commit.committer) \
+                    and 'comment' not in str(commit.summary).lower()  \
                     and 'grammar' not in str(commit.summary).lower() and date-2017 >= 0:
+                # and str(commit.author) != str(commit.committer)
+
             # if 'fix' in str(commit.summary).lower() and 'merge' not in str(commit.summary).lower():
                 temp['ID'] = commit.hexsha
                 temp['AUTHORED_DATE'] = str(commit.authored_datetime)
