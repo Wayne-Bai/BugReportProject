@@ -27,7 +27,7 @@ flag = 0
 
 with open("commit_git.json", 'r') as f2:
     with open("commit_email_mapping.json", 'a') as w:
-        with open("commit_unmap.jsom", 'a') as w1:
+        with open("commit_unmap.json", 'a') as w1:
             for commit_data in f2.readlines():
 
                 flag += 1
