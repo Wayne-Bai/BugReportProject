@@ -5,7 +5,7 @@ repo = Repo('linux')
 
 # print(repo.head.commit)
 
-content = 'fix_commit'
+content = 'whole commit'
 
 count1 = 0
 count2 = 0
@@ -21,7 +21,8 @@ if content == 'fix_commit':
 
     with open('commit_git.json','a') as f:
 
-        for i, commit in enumerate(repo.iter_commits('master', max_count=2500000)):    # 2500000
+        # for i, commit in enumerate(repo.iter_commits('master', max_count=2500000)):    # 2500000
+        for i, commit in enumerate(repo.iter_commits(max_count=2500000)):
 
             temp = {}
 
