@@ -26,99 +26,99 @@ count = 0
 flag = 0
 
 with open("commit_git.json", 'r') as f2:
-    # with open("commit_email_mapping.json", 'a') as w:
-    #     with open("commit_unmap.json", 'a') as w1:
-    #         for commit_data in f2.readlines():
-    #
-    #             flag += 1
-    #             print(flag)
-    #
-    #             fix_commit = json.loads(commit_data)
-    #             # summary = fix_commit["SUMMARY"].lower().split()
-    #             summary = fix_commit["SUMMARY"].lower().split()
-    #
-    #             temp = {}
-    #             temp['COMMIT'] = commit_data
-    #             temp['CONVERSATION'] = []
-    #
-    #             for i in conversation:
-    #
-    #                 title = i[0]["subject"][0].lower().split()
-    #
-    #                 # if summary in title:
-    #
-    #                 # for email in i:
-    #                 #     if fix_commit["ID"] in email['content'][0]:
-    #                 #         temp['CONVERSATION'].append(i)
-    #                 #         if i not in accept_conversation:
-    #                 #             accept_conversation.append(i)
-    #                 #             break
-    #
-    #                 if fix_commit["ID"] in i[0]['content'][0]:
-    #                     temp['CONVERSATION'].append(i)
-    #                     # if i not in accept_conversation:
-    #                     #     accept_conversation.append(i)
-    #
-    #
-    #                 else:
-    #                     rate = len([k for k in summary if k in title]) / len(summary)
-    #
-    #                     if rate > 0.5:
-    #                         temp['CONVERSATION'].append(i)
-    #             # mapping.append(temp)
-    #             if temp['CONVERSATION']:
-    #                 w.write(json.dumps(temp))
-    #                 w.write('\n')
-    #             else:
-    #                 w1.write(commit_data)
-    #                 count += 1
+    with open("commit_email_mapping.json", 'a') as w:
+        with open("commit_unmap.json", 'a') as w1:
+            for commit_data in f2.readlines():
 
-    with open("commit_unmap.json", 'a') as w1:
-        for commit_data in f2.readlines():
+                flag += 1
+                print(flag)
 
-            flag += 1
-            print(flag)
+                fix_commit = json.loads(commit_data)
+                # summary = fix_commit["SUMMARY"].lower().split()
+                summary = fix_commit["SUMMARY"].lower().split()
 
-            fix_commit = json.loads(commit_data)
-            # summary = fix_commit["SUMMARY"].lower().split()
-            summary = fix_commit["SUMMARY"].lower().split()
+                temp = {}
+                temp['COMMIT'] = commit_data
+                temp['CONVERSATION'] = []
 
-            temp = {}
-            temp['COMMIT'] = commit_data
-            temp['CONVERSATION'] = []
+                for i in conversation:
 
-            for i in conversation:
+                    title = i[0]["subject"][0].lower().split()
 
-                title = i[0]["subject"][0].lower().split()
+                    # if summary in title:
 
-                # if summary in title:
+                    # for email in i:
+                    #     if fix_commit["ID"] in email['content'][0]:
+                    #         temp['CONVERSATION'].append(i)
+                    #         if i not in accept_conversation:
+                    #             accept_conversation.append(i)
+                    #             break
 
-                # for email in i:
-                #     if fix_commit["ID"] in email['content'][0]:
-                #         temp['CONVERSATION'].append(i)
-                #         if i not in accept_conversation:
-                #             accept_conversation.append(i)
-                #             break
-
-                if fix_commit["ID"] in i[0]['content'][0]:
-                    temp['CONVERSATION'].append(i)
-                    # if i not in accept_conversation:
-                    #     accept_conversation.append(i)
-
-
-                else:
-                    rate = len([k for k in summary if k in title]) / len(summary)
-
-                    if rate > 0.5:
+                    if fix_commit["ID"] in i[0]['content'][0]:
                         temp['CONVERSATION'].append(i)
-            # mapping.append(temp)
-            if temp['CONVERSATION']:
-                # w.write(json.dumps(temp))
-                # w.write('\n')
-                pass
-            else:
-                w1.write(commit_data)
-                count += 1
+                        # if i not in accept_conversation:
+                        #     accept_conversation.append(i)
+
+
+                    else:
+                        rate = len([k for k in summary if k in title]) / len(summary)
+
+                        if rate > 0.5:
+                            temp['CONVERSATION'].append(i)
+                # mapping.append(temp)
+                if temp['CONVERSATION']:
+                    w.write(json.dumps(temp))
+                    w.write('\n')
+                else:
+                    w1.write(commit_data)
+                    count += 1
+
+    # with open("commit_unmap.json", 'a') as w1:
+    #     for commit_data in f2.readlines():
+    #
+    #         flag += 1
+    #         print(flag)
+    #
+    #         fix_commit = json.loads(commit_data)
+    #         # summary = fix_commit["SUMMARY"].lower().split()
+    #         summary = fix_commit["SUMMARY"].lower().split()
+    #
+    #         temp = {}
+    #         temp['COMMIT'] = commit_data
+    #         temp['CONVERSATION'] = []
+    #
+    #         for i in conversation:
+    #
+    #             title = i[0]["subject"][0].lower().split()
+    #
+    #             # if summary in title:
+    #
+    #             # for email in i:
+    #             #     if fix_commit["ID"] in email['content'][0]:
+    #             #         temp['CONVERSATION'].append(i)
+    #             #         if i not in accept_conversation:
+    #             #             accept_conversation.append(i)
+    #             #             break
+    #
+    #             if fix_commit["ID"] in i[0]['content'][0]:
+    #                 temp['CONVERSATION'].append(i)
+    #                 # if i not in accept_conversation:
+    #                 #     accept_conversation.append(i)
+    #
+    #
+    #             else:
+    #                 rate = len([k for k in summary if k in title]) / len(summary)
+    #
+    #                 if rate > 0.5:
+    #                     temp['CONVERSATION'].append(i)
+    #         # mapping.append(temp)
+    #         if temp['CONVERSATION']:
+    #             # w.write(json.dumps(temp))
+    #             # w.write('\n')
+    #             pass
+    #         else:
+    #             w1.write(commit_data)
+    #             count += 1
 
 w1.close()
 f2.close()
