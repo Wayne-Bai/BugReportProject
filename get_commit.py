@@ -5,7 +5,7 @@ repo = Repo('linux')
 
 # print(repo.head.commit)
 
-content = 'whole commit'
+content = 'whole_commit'
 
 count1 = 0
 count2 = 0
