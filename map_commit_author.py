@@ -57,12 +57,17 @@ for commit in whole_commits:
         if 'gmail' in author_belong or 'googlemail' in author_belong or 'outlook' in author_belong or 'hotmail' in author_belong \
                 or'yahoo' in author_belong or 'foxmail' in author_belong or 'zoho' in author_belong:
             commit_map[author]['belong'] = 'personal'
+        elif 'edu' in author_belong:
+            commit_map[author]['belong'] = 'Education'
         elif 'net' in author_belong:
             commit_map[author]['belong'] = 'network service company'
         elif 'org' in author_belong:
             commit_map[author]['belong'] = 'non-profit organization'
         elif 'com' in author_belong:
-            commit_map[author]['belong'] = 'company'
+            if 'linux' in email_address:
+                commit_map[author]['belong'] = 'company: linux department'
+            else:
+                commit_map[author]['belong'] = 'company'
         else:
             commit_map[author]['belong'] = 'other'
     else:
@@ -77,6 +82,8 @@ print(len(commit_map.keys()))
 
 company_dict = {}
 company_dict['personal'] = {"number of author": 0, "number of submission": 0, "duration": []}
+company_dict['Education'] = {"number of author": 0, "number of submission": 0, "duration": []}
+company_dict['company: linux department'] = {"number of author": 0, "number of submission": 0, "duration": []}
 company_dict['company'] = {"number of author": 0, "number of submission": 0, "duration": []}
 company_dict['non-profit organization'] = {"number of author": 0, "number of submission": 0, "duration": []}
 company_dict['network service'] = {"number of author": 0, "number of submission": 0, "duration": []}
@@ -87,19 +94,27 @@ for key,value in commit_map.items():
         company_dict['personal']['number of author'] += 1
         company_dict['personal']['number of submission'] += value['submission']
         company_dict['personal']['duration'] = company_dict['personal']['duration'] + value['duration']
+    elif value['belong'] == 'Education':
+        company_dict['Education']['number of author'] += 1
+        company_dict['Education']['number of submission'] += value['submission']
+        company_dict['Education']['duration'] = company_dict['Education']['duration'] + value['duration']
+    elif value['belong'] == 'company: linux department':
+        company_dict['company: linux department']['number of author'] += 1
+        company_dict['company: linux department']['number of submission'] += value['submission']
+        company_dict['company: linux department']['duration'] = company_dict['company: linux department']['duration'] + value['duration']
     elif value['belong'] == 'company':
         company_dict['company']['number of author'] += 1
         company_dict['company']['number of submission'] += value['submission']
         company_dict['company']['duration'] = company_dict['company']['duration'] + value['duration']
-    if value['belong'] == 'non-profit organization':
+    elif value['belong'] == 'non-profit organization':
         company_dict['non-profit organization']['number of author'] += 1
         company_dict['non-profit organization']['number of submission'] += value['submission']
         company_dict['non-profit organization']['duration'] = company_dict['non-profit organization']['duration'] + value['duration']
-    if value['belong'] == 'network service company':
+    elif value['belong'] == 'network service company':
         company_dict['network service']['number of author'] += 1
         company_dict['network service']['number of submission'] += value['submission']
         company_dict['network service']['duration'] = company_dict['network service']['duration'] + value['duration']
-    if value['belong'] == 'other':
+    elif value['belong'] == 'other':
         company_dict['other']['number of author'] += 1
         company_dict['other']['number of submission'] += value['submission']
         company_dict['other']['duration'] = company_dict['other']['duration'] + value['duration']
@@ -164,11 +179,11 @@ for key,value in company_dict.items():
     worksheet1.write(val1, 1, value['number of author'])
     worksheet1.write(val1, 2, value['number of submission'])
     if value['duration']:
-        worksheet1.write(val, 3, np.mean(value['duration']))
-        worksheet1.write(val, 4, np.median(value['duration']))
+        worksheet1.write(val1, 3, np.mean(value['duration']))
+        worksheet1.write(val1, 4, np.median(value['duration']))
     else:
-        worksheet.write(val, 2, 0)
-        worksheet.write(val, 3, 0)
+        worksheet.write(val1, 2, 0)
+        worksheet.write(val1, 3, 0)
     val1 += 1
 
 # SAVE the file
