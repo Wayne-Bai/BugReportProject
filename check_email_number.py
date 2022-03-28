@@ -1,6 +1,6 @@
 import json
 
-with open('whole_email.json', 'r') as f:
+with open('fix_total.json', 'r') as f:
     num_2017 = 0
     num_2018 = 0
     num_2019 = 0
