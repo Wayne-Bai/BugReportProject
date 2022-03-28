@@ -10,18 +10,18 @@ with open('total_conversation.json', 'r') as f:
     num_undefine = 0
     for line in f.readlines():
         data = json.loads(line)
-        if data['date'][0]:
-            if data['date'][0][0].split()[3] == '2017':
+        if data[0]['date']:
+            if data[0]['date'][0].split()[3] == '2017':
                 num_2017 += 1
-            elif data['date'][0][0].split()[3] == '2018':
+            elif data[0]['date'][0].split()[3] == '2018':
                 num_2018 += 1
-            elif data['date'][0][0].split()[3] == '2019':
+            elif data[0]['date'][0].split()[3] == '2019':
                 num_2019 += 1
-            elif data['date'][0][0].split()[3] == '2020':
+            elif data[0]['date'][0].split()[3] == '2020':
                 num_2020 += 1
-            elif data['date'][0][0].split()[3] == '2021':
+            elif data[0]['date'][0].split()[3] == '2021':
                 num_2021 += 1
-            elif data['date'][0][0].split()[3] == '2022':
+            elif data[0]['date'][0].split()[3] == '2022':
                 num_2022 += 1
         else:
             num_undefine += 1
