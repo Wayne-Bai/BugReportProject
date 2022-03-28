@@ -9,7 +9,7 @@ with open('fix_total.json', 'r') as f:
     num_2022 = 0
     for line in f.readlines():
         data = json.loads(line)
-        if data['date'].split()[3] == '2017':
+        if data['date'][0].split()[3] == '2017':
             num_2017 += 1
         elif data['date'].split()[3] == '2018':
             num_2018 += 1
