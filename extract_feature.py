@@ -32,7 +32,7 @@ with open("2022_commit_email_mapping.json", 'r') as f2:
 
             # length = 0
             length = max(len(k) for k in accept_data["CONVERSATION"])
-            # print(length)
+            print(length)
 
             if length > 2:
                 for i in accept_data['CONVERSATION']:
