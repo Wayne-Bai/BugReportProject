@@ -72,8 +72,9 @@ with open("commit_email_mapping.json",'r') as f:
                 duration_date[str(date_duration_days.days)] = i[0]['date'][0]
                 duration.append(date_duration_days.days)
 
+            worksheet.write(number, 4, duration_date[str(max(duration))])
 
             worksheet.write(number, 5, abs(max(duration)))
-            worksheet.write(number, 4, duration_date[str(max(duration))])
+
             number += 1
 workbook.save('memory_related.xls')
