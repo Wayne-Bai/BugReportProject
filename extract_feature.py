@@ -72,12 +72,12 @@ for conv in conversation:
             discussion_reject.append(conv)
 
 
-print('maintainer email: {}'.format(maintainer_email))
-print('total conversation: {}'.format((len(conversation))))
-print('directed accept: {}'.format(len(direct_accept)))
-print('discussion accept: {}'.format(len(discussion_accept)))
-print('discussion refuse: {}'.format(len(discussion_reject)))
-print('directed refuse: {}'.format(len(direct_reject)))
+# print('maintainer email: {}'.format(maintainer_email))
+# print('total conversation: {}'.format((len(conversation))))
+# print('directed accept: {}'.format(len(direct_accept)))
+# print('discussion accept: {}'.format(len(discussion_accept)))
+# print('discussion refuse: {}'.format(len(discussion_reject)))
+# print('directed refuse: {}'.format(len(direct_reject)))
 
 for i in direct_accept:
 
@@ -127,11 +127,20 @@ for i in direct_reject:
     else:
         maintainer_email += 1
 
-print(len(direct_accept_feature))
-print(len(discussion_accept_feature))
-print(len(discussion_reject_feature))
-print(len(direct_reject_feature))
-print(maintainer_email)
+print('maintainer email: {}'.format(maintainer_email))
+# print('total conversation: {}'.format((len(conversation))))
+print('directed accept: {}'.format(len(direct_accept_feature)))
+print('discussion accept: {}'.format(len(discussion_accept_feature)))
+print('discussion refuse: {}'.format(len(discussion_reject_feature)))
+print('directed refuse: {}'.format(len(direct_reject_feature)))
+
+
+
+# print(len(direct_accept_feature))
+# print(len(discussion_accept_feature))
+# print(len(discussion_reject_feature))
+# print(len(direct_reject_feature))
+# print(maintainer_email)
 
 
 
