@@ -11,7 +11,7 @@ commit_list = []
 with open("commit_email_mapping.json",'r') as f:
     for line in f.readlines():
         data = json.loads(line)
-        if int(json.loads(data['COMMIT'])['DATE'].split('-')[0]) -2021 >= 0:
+        if int(json.loads(data['COMMIT'])['COMMITTED_DATE'].split('-')[0]) -2021 >= 0:
             commit_list.append(data)
 
 f.close()
@@ -24,7 +24,7 @@ for i in id:
     for j in commit_list:
         commit = json.loads(data['COMMIT'])
         conversation = data['CONVERSATION']
-        if i == commit['DATE']:
+        if i == commit['ID']:
             number += 1
             for k in conversation:
                 print('ID: {}, Public Date: {}'.format(i,k['date']))
