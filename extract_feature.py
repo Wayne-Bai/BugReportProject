@@ -5,7 +5,7 @@ import numpy as np
 conversation = []
 maintainer_email = 0
 
-with open("2022_conversation.json", "r") as f1:
+with open("total_conversation.json", "r") as f1:
     for line in f1.readlines():
         data = json.loads(line)
         # if data[0]['author'] != ['Greg Kroah-Hartman'] and data[0]['author'] != ['kernel test robot']:
@@ -25,7 +25,7 @@ discussion_accept_feature = []
 
 total_accept = []
 
-with open("2022_commit_email_mapping.json", 'r') as f2:
+with open("commit_email_mapping.json", 'r') as f2:
     for lines in f2.readlines():
         accept_data = json.loads(lines)
         if accept_data['CONVERSATION']:
