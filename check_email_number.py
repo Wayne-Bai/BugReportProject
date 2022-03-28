@@ -11,15 +11,15 @@ with open('fix_total.json', 'r') as f:
         data = json.loads(line)
         if data['date'][0].split()[3] == '2017':
             num_2017 += 1
-        elif data['date'].split()[3] == '2018':
+        elif data['date'][0].split()[3] == '2018':
             num_2018 += 1
-        elif data['date'].split()[3] == '2019':
+        elif data['date'][0].split()[3] == '2019':
             num_2019 += 1
-        elif data['date'].split()[3] == '2020':
+        elif data['date'][0].split()[3] == '2020':
             num_2020 += 1
-        elif data['date'].split()[3] == '2021':
+        elif data['date'][0].split()[3] == '2021':
             num_2021 += 1
-        elif data['date'].split()[3] == '2022':
+        elif data['date'][0].split()[3] == '2022':
             num_2022 += 1
 
     print('2017: {}'.format(num_2017))
