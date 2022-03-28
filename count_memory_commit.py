@@ -66,14 +66,14 @@ with open("commit_email_mapping.json",'r') as f:
                 elif email_month == 'Dec':
                     int_email_month = 12
 
-                date_duration_days = datetime.datetime(int(email_year), int_email_month, int(email_day)) - \
+                date_duration_days = datetime.datetime(int(email_year), int(int_email_month), int(email_day)) - \
                                      datetime.datetime(int(commit_year), int(commit_month), int(commit_day))
 
                 duration_date[str(date_duration_days.days)] = i[0]['date'][0]
                 duration.append(date_duration_days.days)
 
 
-            worksheet.write(number, 5, max(duration))
+            worksheet.write(number, 5, abs(max(duration)))
             worksheet.write(number, 4, duration_date[str(max(duration))])
             number += 1
-workbook.save('memory related bug reports.xls')
+workbook.save('memory_related.xls')
