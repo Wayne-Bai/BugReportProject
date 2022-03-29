@@ -235,7 +235,13 @@ print('max line: {}'.format(max(whole_line)))
 print('min line: {}'.format(min(whole_line)))
 
 print('whole accept rate: {}'.format(sum(sub_number)/sum(conv_number)))
-print('whole average duration: {}'.format(np.mean(whole_duration)))
+
+geo = 1
+for i in whole_duration:
+    geo *= i
+geo_mean = pow(geo,1/len(whole_duration))
+
+print('whole geo-mean duration: {}'.format(geo_mean))
 print('whole median duration:{}'.format(np.median(whole_duration)))
 print('whole average accept line: {}'.format(np.mean(whole_accept_line)))
 print('whole average reject line: {}'.format(np.mean(whole_reject_line)))
@@ -345,7 +351,12 @@ for key,value in company_dict.items():
     worksheet1.write(val1, 2, value['number of submission'])
     worksheet1.write(val1, 3, value['conversation'])
     if value['duration']:
-        worksheet1.write(val1, 4, np.mean(value['duration']))
+        geo = 1
+        for i in value['duration']:
+            geo *= i
+        geo_mean = pow(geo, 1 / len(whole_duration))
+
+        worksheet1.write(val1, 4, geo_mean)
         worksheet1.write(val1, 5, np.median(value['duration']))
     else:
         worksheet.write(val1, 4, 0)
@@ -371,7 +382,11 @@ for key,value in line_accept_dict.items():
     worksheet3.write(val3, 0, key)
 
     if value['duration']:
-        worksheet3.write(val3, 1, np.mean(value['duration']))
+        geo = 1
+        for i in value['duration']:
+            geo *= i
+        geo_mean = pow(geo, 1 / len(whole_duration))
+        worksheet3.write(val3, 1, geo_mean)
     else:
         worksheet3.write(val3, 1, 0)
 
@@ -379,4 +394,4 @@ for key,value in line_accept_dict.items():
 
 # SAVE the file
 
-workbook.save('final_version_v4.xls')
+workbook.save('final_version_v5.xls')
