@@ -45,8 +45,8 @@ for commit in whole_commits:
                        datetime.datetime(int(author_year), int(author_month), int(author_day))
 
             author_email = commit["AUTHOR_EMAIL"]
-            email_address = author_email.split('@')[1]
-            author_belong = email_address.split('.')
+            email_address = author_email.split('@')
+            author_belong = email_address[0].split('.') + email_address[1].split('.')
 
             accept_content = commit['MESSAGE']
             if 'Fixes:' in accept_content:
@@ -67,22 +67,25 @@ for commit in whole_commits:
 
                 commit_map[author]['accept line'] = [accept_line]
 
-                if 'gmail' in author_belong or 'googlemail' in author_belong or 'outlook' in author_belong or 'hotmail' in author_belong \
+                if 'gmail' in author_belong or 'outlook' in author_belong or 'hotmail' in author_belong \
                         or 'yahoo' in author_belong or 'foxmail' in author_belong or 'zoho' in author_belong:
                     commit_map[author]['belong'] = 'personal'
                 elif 'edu' in author_belong:
                     commit_map[author]['belong'] = 'Education'
-                elif 'net' in author_belong:
-                    commit_map[author]['belong'] = 'network service company'
-                elif 'org' in author_belong:
-                    commit_map[author]['belong'] = 'non-profit organization'
+                # elif 'net' in author_belong:
+                #     commit_map[author]['belong'] = 'network service company'
+                elif 'org' in author_belong or 'net' in author_belong:
+                    if 'linux' in email_address:
+                        commit_map[author]['belong'] = 'organization: linux'
+                    else:
+                        commit_map[author]['belong'] = 'organization: other'
                 elif 'com' in author_belong:
                     if 'linux' in email_address:
                         commit_map[author]['belong'] = 'company: linux department'
                     else:
                         commit_map[author]['belong'] = 'company'
                 else:
-                    commit_map[author]['belong'] = 'other'
+                    commit_map[author]['belong'] = 'personal'
 
                 commit_map[author]['conversation'] = 0
 
@@ -147,9 +150,9 @@ company_dict['personal'] = {"number of author": 0, "number of submission": 0, "d
 company_dict['Education'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
 company_dict['company: linux department'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
 company_dict['company'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
-company_dict['non-profit organization'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
-company_dict['network service'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
-company_dict['other'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
+company_dict['organization: linux'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
+# company_dict['network service'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
+company_dict['organization: other'] = {"number of author": 0, "number of submission": 0, "duration": [], 'conversation': 0, 'accept line': [], 'conversation line': []}
 
 for key,value in filter_commit_map.items():
     if value['belong'] == 'personal':
@@ -180,27 +183,27 @@ for key,value in filter_commit_map.items():
         company_dict['company']['conversation'] += value['conversation']
         # company_dict['company']['accept line'] = company_dict['company']['accept line'] + value['accept line']
         # company_dict['company']['conversation line'] = company_dict['company']['conversation line'] + value['conversation line']
-    elif value['belong'] == 'non-profit organization':
-        company_dict['non-profit organization']['number of author'] += 1
-        company_dict['non-profit organization']['number of submission'] += value['submission']
-        company_dict['non-profit organization']['duration'] = company_dict['non-profit organization']['duration'] + value['duration']
-        company_dict['non-profit organization']['conversation'] += value['conversation']
-        # company_dict['non-profit organization']['accept line'] = company_dict['non-profit organization']['accept line'] + value['accept line']
-        # company_dict['non-profit organization']['conversation line'] = company_dict['non-profit organization']['conversation line'] + value['conversation line']
-    elif value['belong'] == 'network service company':
-        company_dict['network service']['number of author'] += 1
-        company_dict['network service']['number of submission'] += value['submission']
-        company_dict['network service']['duration'] = company_dict['network service']['duration'] + value['duration']
-        company_dict['network service']['conversation'] += value['conversation']
+    elif value['belong'] == 'organization: linux':
+        company_dict['organization: linux']['number of author'] += 1
+        company_dict['organization: linux']['number of submission'] += value['submission']
+        company_dict['organization: linux']['duration'] = company_dict['organization: linux']['duration'] + value['duration']
+        company_dict['organization: linux']['conversation'] += value['conversation']
+        # company_dict['organization: linux']['accept line'] = company_dict['organization: linux']['accept line'] + value['accept line']
+        # company_dict['organization: linux']['conversation line'] = company_dict['organization: linux']['conversation line'] + value['conversation line']
+    # elif value['belong'] == 'network service company':
+    #     company_dict['network service']['number of author'] += 1
+    #     company_dict['network service']['number of submission'] += value['submission']
+    #     company_dict['network service']['duration'] = company_dict['network service']['duration'] + value['duration']
+    #     company_dict['network service']['conversation'] += value['conversation']
         # company_dict['network service company']['accept line'] = company_dict['network service company']['accept line'] + value['accept line']
         # company_dict['network service company']['conversation line'] = company_dict['network service company']['conversation line'] + value['conversation line']
-    elif value['belong'] == 'other':
-        company_dict['other']['number of author'] += 1
-        company_dict['other']['number of submission'] += value['submission']
-        company_dict['other']['duration'] = company_dict['other']['duration'] + value['duration']
-        company_dict['other']['conversation'] += value['conversation']
-        # company_dict['other']['accept line'] = company_dict['other']['accept line'] + value['accept line']
-        # company_dict['other']['conversation line'] = company_dict['other']['conversation line'] + value['conversation line']
+    elif value['belong'] == 'organization: other':
+        company_dict['organization: other']['number of author'] += 1
+        company_dict['organization: other']['number of submission'] += value['submission']
+        company_dict['organization: other']['duration'] = company_dict['organization: other']['duration'] + value['duration']
+        company_dict['organization: other']['conversation'] += value['conversation']
+        # company_dict['organization: other']['accept line'] = company_dict['organization: other']['accept line'] + value['accept line']
+        # company_dict['organization: other']['conversation line'] = company_dict['organization: other']['conversation line'] + value['conversation line']
 
     # print("Author: {}, Submit Number: {}, Duration_Average: {}, Duration_Median: {}".format(key, value['submission'], np.mean(value['duration']), np.median(value['duration'])))
     sub_number.append(value['submission'])
@@ -309,7 +312,11 @@ for key, value in number_dict.items():
     if value['author number'] == 0:
         worksheet.write(val, 5, 0)
     else:
-        worksheet.write(val, 5, int(key) * value['author number'] / value['conversation'])
+        rate = int(key) * value['author number'] / value['conversation']
+        if rate > 1:
+            worksheet.write(val, 5, 1)
+        else:
+            worksheet.write(val, 5, rate)
     val += 1
 
 val1 = 1
@@ -324,7 +331,12 @@ for key,value in company_dict.items():
     else:
         worksheet.write(val1, 4, 0)
         worksheet.write(val1, 5, 0)
-    worksheet1.write(val1, 6, value['number of submission']/value['conversation'])
+
+    rate = value['number of submission']/value['conversation']
+    if rate > 1:
+        worksheet1.write(val1, 6, 1)
+    else:
+        worksheet1.write(val1, 6, rate)
     val1 += 1
 
 val2 = 1
@@ -336,4 +348,4 @@ for key,value in line_dict.items():
 
 # SAVE the file
 
-workbook.save('final version.xls')
+workbook.save('final_version_v1.xls')
