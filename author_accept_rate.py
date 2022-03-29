@@ -9,7 +9,7 @@ worksheet = workbook.add_sheet('commit', cell_overwrite_ok=True)
 
 whole_commits = []
 
-with open("commit_git.json",'r') as f:
+with open("2022_commit.json",'r') as f:
     for line in f.readlines():
         data = json.loads(line)
         whole_commits.append(data)
@@ -75,12 +75,12 @@ for commit in whole_commits:
                 # elif 'net' in author_belong:
                 #     commit_map[author]['belong'] = 'network service company'
                 elif 'org' in author_belong or 'net' in author_belong:
-                    if 'linux' in email_address:
+                    if 'linux' in author_email:
                         commit_map[author]['belong'] = 'organization: linux'
                     else:
                         commit_map[author]['belong'] = 'organization: other'
                 elif 'com' in author_belong:
-                    if 'linux' in email_address:
+                    if 'linux' in author_email:
                         commit_map[author]['belong'] = 'company: linux department'
                     else:
                         commit_map[author]['belong'] = 'company'
@@ -96,7 +96,7 @@ for commit in whole_commits:
 
                 commit_map[author]['submission'] += 1
 
-with open('total_conversation.json', 'r') as f1:
+with open('2022_conversation.json', 'r') as f1:
     for line in f1.readlines():
         conversation = json.loads(line)
         if conversation[0]['author']:
