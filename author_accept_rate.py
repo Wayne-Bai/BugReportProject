@@ -220,13 +220,13 @@ for key,value in filter_commit_map.items():
     whole_accept_line += accept_temp
     whole_reject_line += reject_temp
 
-print(max(sub_number))
-print(sum(sub_number))
+print('max submission number: {}'.format(max(sub_number)))
+print('total submission number: {}'.format(sum(sub_number)))
 
 whole_line = whole_accept_line + whole_reject_line
 
-print(max(whole_line))
-print(min(whole_line))
+print('max line: {}'.format(max(whole_line)))
+print('min line: {}'.format(min(whole_line)))
 
 print('whole accept rate: {}'.format(sum(sub_number)/sum(conv_number)))
 print('whole average duration: {}'.format(np.mean(whole_duration)))
