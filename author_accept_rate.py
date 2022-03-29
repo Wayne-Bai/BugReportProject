@@ -268,12 +268,23 @@ for i in whole_accept_line:
 for j in whole_reject_line:
     line_dict[str(j)]['reject'] += 1
 
+line_accept_dict = {}
+for i in range(min(whole_accept_line), max(whole_accept_line)+1):
+    line_accept_dict[str(i)] = {}
+    line_accept_dict[str(i)]['duration'] = []
+for key,value in filter_commit_map.items():
+    for i in range(len(value['accept line'])):
+        try:
+            line_accept_dict[str(value['accept line'][i])]['duration'].append(value['duration'][i])
+        except:
+            line_accept_dict[str(value['accept line'][i])]['duration'].append(value['duration'][-1])
 
 
 workbook = xlwt.Workbook(encoding='utf-8')
 worksheet = workbook.add_sheet('author duration', cell_overwrite_ok=True)
 worksheet1 = workbook.add_sheet('company duration', cell_overwrite_ok=True)
 worksheet2 = workbook.add_sheet('line accept reject', cell_overwrite_ok=True)
+worksheet3 = workbook.add_sheet('line duration', cell_overwrite_ok=True)
 
 # Set up the HEAD
 worksheet.write(0, 0, label='Number of Submission')
@@ -295,6 +306,11 @@ worksheet1.write(0, 6, label='Accept Rate')
 worksheet2.write(0, 0, label='Number of lines')
 worksheet2.write(0, 1, label='Accept')
 worksheet2.write(0, 2, label='Reject')
+
+worksheet3.write(0, 0, label='Number of lines')
+worksheet3.write(0, 1, label='Duration Average')
+
+
 
 val = 1
 
@@ -348,6 +364,18 @@ for key,value in line_dict.items():
     worksheet2.write(val2, 2, value['reject'])
     val2 += 1
 
+val3 = 1
+for key,value in line_accept_dict.items():
+
+    worksheet3.write(val3, 0, key)
+
+    if value['duration']:
+        worksheet3.write(val3, 1, np.mean(value['duration']))
+    else:
+        worksheet3.write(val3, 1, 0)
+
+    val3 += 1
+
 # SAVE the file
 
-workbook.save('final_version_v1.xls')
+workbook.save('final_version_v3.xls')
