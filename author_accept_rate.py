@@ -9,7 +9,7 @@ worksheet = workbook.add_sheet('commit', cell_overwrite_ok=True)
 
 whole_commits = []
 
-with open("commit.json",'r') as f:
+with open("commit_git.json",'r') as f:
     for line in f.readlines():
         data = json.loads(line)
         whole_commits.append(data)
