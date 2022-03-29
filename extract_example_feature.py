@@ -11,8 +11,13 @@ f1.close()
 
 direct_accept = []
 
+direct_accept_length = []
+
 discussion_accept = []
 
+discussion_accept_length = []
+
+total_accept = []
 
 with open("2022_commit_email_mapping.json", 'r') as f2:
     for lines in f2.readlines():
@@ -24,20 +29,29 @@ with open("2022_commit_email_mapping.json", 'r') as f2:
             print(length)
 
             if length > 2:
-                discussion_accept.append(accept_data['CONVERSATION'])
+                for i in accept_data['CONVERSATION']:
+                    total_accept.append(i)
+                    if len(i) > 1:
+                        discussion_accept.append(i)
 
             else:
-                direct_accept.append(accept_data['CONVERSATION'])
+                for j in accept_data['CONVERSATION']:
+                    total_accept.append(j)
+                    direct_accept.append(j)
 
 f2.close()
 
 direct_reject = []
 
+direct_reject_length = []
+
 discussion_reject = []
 
+discussion_reject_length = []
+
 for conv in conversation:
-    if conv not in direct_accept and conv not in discussion_accept:
-        if len(conv) < 3:
+    if conv not in total_accept:
+        if len(conv) == 1:
             direct_reject.append(conv)
         else:
             discussion_reject.append(conv)
@@ -78,55 +92,79 @@ v5 = 1
 
 for a in direct_accept:
     if v1 < 65:
-        if len(a) == 1:
-            if a[0][0]['author'] != ['Greg Kroah-Hartman']:
-                worksheet1.write(v1, 0, a[0][0]['date'])
-                worksheet1.write(v1, 1, str(a[0][0])[:4000])
-                v1 += 1
-        else:
-            max_len1 = max(len(x) for x in a)
-            for a1 in a:
-                if len(a1) == max_len1 and a1[0]['author'] != ['Greg Kroah-Hartman']:
-                    worksheet1.write(v1, 0, a1[0]['date'])
-                    worksheet1.write(v1, 1, str(a1)[:4000])
-                    v1 += 1
+
+        if a[0]['author'] != ['Greg Kroah-Hartman'] and a[0]['author'] != ['kernel test robot']:
+            worksheet1.write(v1, 0, a[0]['date'])
+            worksheet1.write(v1, 1, str(a[0])[:4000])
+            v1 += 1
+
+        # if len(a) == 1:
+        #     if a[0]['author'] != ['Greg Kroah-Hartman']:
+        #         worksheet1.write(v1, 0, a[0]['date'])
+        #         worksheet1.write(v1, 1, str(a[0])[:4000])
+        #         v1 += 1
+        # else:
+
+            # for a1 in a:
+            #     if a1['author'] != ['Greg Kroah-Hartman']:
+            #         worksheet1.write(v1, 0, a1[0]['date'])
+            #         worksheet1.write(v1, 1, str(a1)[:4000])
+            #         v1 += 1
 
 for b in discussion_accept:
     if v2 < 65:
-        max_len2 = max(len(x) for x in b)
-        for b1 in b:
-            if len(b1) == max_len2 and b1[0]['author'] != ['Greg Kroah-Hartman']:
-                worksheet2.write(v2, 0, b1[0]['date'])
-                worksheet2.write(v2, 1, str(b1)[:4000])
-                v2 += 1
+
+        if b[0]['author'] != ['Greg Kroah-Hartman'] and b[0]['author'] != ['kernel test robot']:
+            worksheet2.write(v2, 0, b[0]['date'])
+            worksheet2.write(v2, 1, str(b[0])[:4000])
+            v2 += 1
+
+        # max_len2 = max(len(x) for x in b)
+        # for b1 in b:
+        #     if len(b1) == max_len2 and b1[0]['author'] != ['Greg Kroah-Hartman']:
+        #         worksheet2.write(v2, 0, b1[0]['date'])
+        #         worksheet2.write(v2, 1, str(b1)[:4000])
+        #         v2 += 1
 
 for c in discussion_reject:
     if v3 < 65:
-        max_len3 = max(len(x) for x in c)
-        for c1 in c:
-            if len(c1) == max_len3 and c1['author'] != ['Greg Kroah-Hartman']:
-                worksheet3.write(v3, 0, c1['date'])
-                worksheet3.write(v3, 1, str(c1)[:4000])
-                v3 += 1
+
+        if c[0]['author'] != ['Greg Kroah-Hartman'] and c[0]['author'] != ['kernel test robot']:
+            worksheet3.write(v3, 0, c[0]['date'])
+            worksheet3.write(v3, 1, str(c[0])[:4000])
+            v3 += 1
+
+        # max_len3 = max(len(x) for x in c)
+        # for c1 in c:
+        #     if len(c1) == max_len3 and c1['author'] != ['Greg Kroah-Hartman']:
+        #         worksheet3.write(v3, 0, c1['date'])
+        #         worksheet3.write(v3, 1, str(c1)[:4000])
+        #         v3 += 1
 
 for d in direct_reject:
     if v4 < 65:
-        if len(d) == 1 and d[0]['author'] != ['Greg Kroah-Hartman'] and d[0]['author'] != ['kernel test robot']:
+
+        if d[0]['author'] != ['Greg Kroah-Hartman'] and d[0]['author'] != ['kernel test robot']:
             worksheet4.write(v4, 0, d[0]['date'])
-            worksheet4.write(v4, 1, str(d)[:4000])
+            worksheet4.write(v4, 1, str(d[0])[:4000])
             v4 += 1
-        else:
-            max_len4 = max(len(x) for x in d)
-            for d1 in d:
-                if len(d1) == max_len4 and d1['author'] != ['Greg Kroah-Hartman'] and d1['author'] != ['kernel test robot']:
-                    worksheet4.write(v4, 0, d1['date'])
-                    worksheet4.write(v4, 1, str(d1)[:4000])
-                    v4 += 1
+
+        # if len(d) == 1 and d[0]['author'] != ['Greg Kroah-Hartman'] and d[0]['author'] != ['kernel test robot']:
+        #     worksheet4.write(v4, 0, d[0]['date'])
+        #     worksheet4.write(v4, 1, str(d)[:4000])
+        #     v4 += 1
+        # else:
+        #     max_len4 = max(len(x) for x in d)
+        #     for d1 in d:
+        #         if len(d1) == max_len4 and d1['author'] != ['Greg Kroah-Hartman'] and d1['author'] != ['kernel test robot']:
+        #             worksheet4.write(v4, 0, d1['date'])
+        #             worksheet4.write(v4, 1, str(d1)[:4000])
+        #             v4 += 1
 
 
 
 # SAVE the file
 
-workbook.save('4_categories_example.xls')
+workbook.save('4_categories_example_v6_direct.xls')
 
 
