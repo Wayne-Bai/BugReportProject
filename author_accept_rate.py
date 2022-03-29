@@ -46,8 +46,9 @@ for commit in whole_commits:
                        datetime.datetime(int(author_year), int(author_month), int(author_day))
 
             author_email = commit["AUTHOR_EMAIL"]
-            email_address = author_email.split('@')
-            author_belong = email_address[0].split('.') + email_address[1].split('.')
+            email_address = author_email.split('@')[1]
+            # author_belong = email_address[0].split('.') + email_address[1].split('.')
+            author_belong = email_address.split('.')
 
             accept_content = commit['MESSAGE']
             if 'Fixes:' in accept_content:
@@ -76,11 +77,11 @@ for commit in whole_commits:
                 # elif 'net' in author_belong:
                 #     commit_map[author]['belong'] = 'network service company'
                 elif 'org' in author_belong or 'net' in author_belong:
-                    if 'linux' in author_email:
+                    if 'linux' in email_address:
                         commit_map[author]['belong'] = 'organization: linux'
                     else:
                         commit_map[author]['belong'] = 'organization: other'
-                elif 'com' in author_belong:
+                elif 'com' in email_address:
                     if 'linux' in author_email:
                         commit_map[author]['belong'] = 'company: linux department'
                     else:
