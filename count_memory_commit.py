@@ -13,7 +13,7 @@ worksheet.write(0, 5, label='Duration')
 
 number = 1
 
-with open("commit_email_mapping.json",'r') as f:
+with open("commit_git.json",'r') as f:
     for line in f.readlines():
         data = json.loads(line)
         commit = json.loads(data['COMMIT'])
@@ -29,52 +29,54 @@ with open("commit_email_mapping.json",'r') as f:
             commit_month = commit_date.split('-')[1]
             commit_day = commit_date.split('-')[2]
 
-            conversation = data['CONVERSATION']
+            author_date = commit["AUTHORED_DATE"].split()[0]
+            author_year = author_date.split('-')[0]
+            author_month = author_date.split('-')[1]
+            author_day = author_date.split('-')[2]
+            # conversation = data['CONVERSATION']
+            #
+            # duration = []
+            # duration_date = {}
+            #
+            # for i in conversation:
+            #
+            #     email_date = i[0]['date'][0].split()
+            #     email_year = email_date[3]
+            #     email_month = email_date[2]
+            #     email_day = email_date[1]
+            #
+            #     if email_month == 'Jan':
+            #         int_email_month = 1
+            #     elif email_month == 'Feb':
+            #         int_email_month = 2
+            #     elif email_month == 'Mar':
+            #         int_email_month = 3
+            #     elif email_month == 'Apr':
+            #         int_email_month = 4
+            #     elif email_month == 'May':
+            #         int_email_month = 5
+            #     elif email_month == 'Jun':
+            #         int_email_month = 6
+            #     elif email_month == 'Jul':
+            #         int_email_month = 7
+            #     elif email_month == 'Aug':
+            #         int_email_month = 8
+            #     elif email_month == 'Sep':
+            #         int_email_month = 9
+            #     elif email_month == 'Oct':
+            #         int_email_month = 10
+            #     elif email_month == 'Nov':
+            #         int_email_month = 11
+            #     elif email_month == 'Dec':
+            #         int_email_month = 12
 
-            duration = []
-            duration_date = {}
+            date_duration_days = datetime.datetime(int(commit_year), int(commit_month), int(commit_day)) - \
+                                 datetime.datetime(int(author_year), int(author_month), int(author_day))
 
-            for i in conversation:
 
-                email_date = i[0]['date'][0].split()
-                email_year = email_date[3]
-                email_month = email_date[2]
-                email_day = email_date[1]
 
-                if email_month == 'Jan':
-                    int_email_month = 1
-                elif email_month == 'Feb':
-                    int_email_month = 2
-                elif email_month == 'Mar':
-                    int_email_month = 3
-                elif email_month == 'Apr':
-                    int_email_month = 4
-                elif email_month == 'May':
-                    int_email_month = 5
-                elif email_month == 'Jun':
-                    int_email_month = 6
-                elif email_month == 'Jul':
-                    int_email_month = 7
-                elif email_month == 'Aug':
-                    int_email_month = 8
-                elif email_month == 'Sep':
-                    int_email_month = 9
-                elif email_month == 'Oct':
-                    int_email_month = 10
-                elif email_month == 'Nov':
-                    int_email_month = 11
-                elif email_month == 'Dec':
-                    int_email_month = 12
+            worksheet.write(number, 4, date_duration_days.days)
 
-                date_duration_days = datetime.datetime(int(email_year), int(int_email_month), int(email_day)) - \
-                                     datetime.datetime(int(commit_year), int(commit_month), int(commit_day))
-
-                duration_date[str(date_duration_days.days)] = i[0]['date'][0]
-                duration.append(date_duration_days.days)
-
-            worksheet.write(number, 4, duration_date[str(max(duration))])
-
-            worksheet.write(number, 5, abs(max(duration)))
 
             number += 1
-workbook.save('memory_related.xls')
+workbook.save('memory_related_commit.xls')
