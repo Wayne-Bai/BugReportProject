@@ -15,8 +15,7 @@ number = 1
 
 with open("commit_git.json",'r') as f:
     for line in f.readlines():
-        data = json.loads(line)
-        commit = json.loads(data['COMMIT'])
+        commit = json.loads(line)
         if 'memory' in commit['SUMMARY'].lower():
             print(number)
             worksheet.write(number, 0, commit['ID'])
