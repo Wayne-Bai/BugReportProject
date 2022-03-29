@@ -236,13 +236,13 @@ print('min line: {}'.format(min(whole_line)))
 
 print('whole accept rate: {}'.format(sum(sub_number)/sum(conv_number)))
 
-whole_duration_new = [1 if i == 0 else i for i in whole_duration]
-geo = 1
-for i in whole_duration:
-    geo *= i
-geo_mean = pow(geo,1/len(whole_duration))
+# whole_duration_new = [1 if i == 0 else i for i in whole_duration]
+# geo = 1
+# for i in whole_duration:
+#     geo *= i
+# geo_mean = pow(geo,1/len(whole_duration))
 
-print('whole geo-mean duration: {}'.format(geo_mean))
+# print('whole geo-mean duration: {}'.format(geo_mean))
 print('whole median duration:{}'.format(np.median(whole_duration)))
 print('whole average accept line: {}'.format(np.mean(whole_accept_line)))
 print('whole average reject line: {}'.format(np.mean(whole_reject_line)))
