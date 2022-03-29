@@ -236,6 +236,7 @@ print('min line: {}'.format(min(whole_line)))
 
 print('whole accept rate: {}'.format(sum(sub_number)/sum(conv_number)))
 
+whole_duration_new = [1 if i == 0 else i for i in whole_duration]
 geo = 1
 for i in whole_duration:
     geo *= i
@@ -328,7 +329,13 @@ for key, value in number_dict.items():
     worksheet.write(val, 2, value['author number'])
 
     if value['duration']:
-        worksheet.write(val, 3, np.mean(value['duration']))
+        if value['duration']:
+            duration_new = [1 if i == 0 else i for i in value['duration']]
+            geo = 1
+            for i in duration_new:
+                geo *= i
+            geo_mean = pow(geo, 1 / len(duration_new))
+        worksheet.write(val, 3, geo_mean)
         worksheet.write(val, 4, np.median(value['duration']))
     else:
         worksheet.write(val, 3, 0)
@@ -351,10 +358,11 @@ for key,value in company_dict.items():
     worksheet1.write(val1, 2, value['number of submission'])
     worksheet1.write(val1, 3, value['conversation'])
     if value['duration']:
+        duration_new = [1 if i == 0 else i for i in value['duration']]
         geo = 1
-        for i in value['duration']:
+        for i in duration_new:
             geo *= i
-        geo_mean = pow(geo, 1 / len(whole_duration))
+        geo_mean = pow(geo, 1 / len(duration_new))
 
         worksheet1.write(val1, 4, geo_mean)
         worksheet1.write(val1, 5, np.median(value['duration']))
@@ -382,10 +390,11 @@ for key,value in line_accept_dict.items():
     worksheet3.write(val3, 0, key)
 
     if value['duration']:
+        duration_new = [1 if i == 0 else i for i in value['duration']]
         geo = 1
-        for i in value['duration']:
+        for i in duration_new:
             geo *= i
-        geo_mean = pow(geo, 1 / len(whole_duration))
+        geo_mean = pow(geo, 1 / len(duration_new))
         worksheet3.write(val3, 1, geo_mean)
     else:
         worksheet3.write(val3, 1, 0)
