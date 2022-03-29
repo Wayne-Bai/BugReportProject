@@ -2,6 +2,7 @@ import json
 import xlwt
 import datetime
 import numpy as np
+import math
 
 
 workbook = xlwt.Workbook(encoding='utf-8')
@@ -236,11 +237,13 @@ print('min line: {}'.format(min(whole_line)))
 
 print('whole accept rate: {}'.format(sum(sub_number)/sum(conv_number)))
 
-# whole_duration_new = [1 if i == 0 else i for i in whole_duration]
-# geo = 1
-# for i in whole_duration:
-#     geo *= i
-# geo_mean = pow(geo,1/len(whole_duration))
+whole_duration_new = [1 if i == 0 else i for i in whole_duration]
+geo = 1
+for i in whole_duration:
+    geo *= i
+
+new_geo = math.log(geo)
+geo_mean = pow(new_geo,1/len(whole_duration))
 
 # print('whole geo-mean duration: {}'.format(geo_mean))
 print('whole median duration:{}'.format(np.median(whole_duration)))
@@ -334,7 +337,8 @@ for key, value in number_dict.items():
             geo = 1
             for i in duration_new:
                 geo *= i
-            geo_mean = pow(geo, 1 / len(duration_new))
+            new_geo = math.log(geo)
+            geo_mean = pow(new_geo, 1 / len(duration_new))
         worksheet.write(val, 3, geo_mean)
         worksheet.write(val, 4, np.median(value['duration']))
     else:
@@ -362,7 +366,8 @@ for key,value in company_dict.items():
         geo = 1
         for i in duration_new:
             geo *= i
-        geo_mean = pow(geo, 1 / len(duration_new))
+        new_geo = math.log(geo)
+        geo_mean = pow(new_geo, 1 / len(duration_new))
 
         worksheet1.write(val1, 4, geo_mean)
         worksheet1.write(val1, 5, np.median(value['duration']))
@@ -394,7 +399,8 @@ for key,value in line_accept_dict.items():
         geo = 1
         for i in duration_new:
             geo *= i
-        geo_mean = pow(geo, 1 / len(duration_new))
+        new_geo = math.log(geo)
+        geo_mean = pow(new_geo, 1 / len(duration_new))
         worksheet3.write(val3, 1, geo_mean)
     else:
         worksheet3.write(val3, 1, 0)
@@ -403,4 +409,4 @@ for key,value in line_accept_dict.items():
 
 # SAVE the file
 
-workbook.save('final_version_v5.xls')
+workbook.save('final_version_v6.xls')
