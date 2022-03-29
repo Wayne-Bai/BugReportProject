@@ -9,7 +9,7 @@ worksheet = workbook.add_sheet('commit', cell_overwrite_ok=True)
 
 whole_commits = []
 
-with open("2022_commit.json",'r') as f:
+with open("commit.json",'r') as f:
     for line in f.readlines():
         data = json.loads(line)
         whole_commits.append(data)
@@ -93,7 +93,7 @@ for commit in whole_commits:
 
                 commit_map[author]['submission'] += 1
 
-with open('2022_conversation.json', 'r') as f1:
+with open('total_conversation.json', 'r') as f1:
     for line in f1.readlines():
         conversation = json.loads(line)
         if conversation[0]['author']:
